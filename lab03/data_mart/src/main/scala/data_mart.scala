@@ -102,13 +102,14 @@ object data_mart {
         // Write to DB
         resultDF.write
           .format("jdbc")
-          .option("url", "jdbc:postgresql://адрес_Postgres:порт_Postgres/выходная_база_Postgres") //как в логине к личному кабинету но _ вместо .
-          .option("dbtable", "выходная_таблица_Postgres")
-          .option("user", "имя_фамилия")
-          .option("password", "*** *****")
+          .option("url", "jdbc:postgresql://10.0.0.31:5432/ilya_ilyin") //как в логине к личному кабинету но _ вместо .
+          .option("dbtable", "clients")
+          .option("user", "ilya_ilyin")
+          .option("password", "peFgYv2v")
           .option("driver", "org.postgresql.Driver")
           .option("truncate", value = true) //позволит не терять гранты на таблицу
           .mode("overwrite") //очищает данные в таблице перед записью
           .save()
+
     }
 }
