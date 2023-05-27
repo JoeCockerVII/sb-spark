@@ -50,7 +50,6 @@ object filter {
       .option("path", "/user/ilya.ilyin/visits/view")
       .save()
 
-    println("Test Checkpoint1")
     buyCategory
       .write
       .format("json")
@@ -59,3 +58,4 @@ object filter {
       .option("path", "/user/ilya.ilyin/visits/buy")
       .save()
   }
+}
