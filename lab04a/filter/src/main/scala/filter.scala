@@ -11,6 +11,8 @@ object filter {
       .appName("ilya_ilyin_lab04")
       .getOrCreate()
 
+    import spark.implicits._
+
     val topicName = spark.conf.get("spark.filter.topic_name", "lab04_input_data")
     val offset = spark.conf.get("spark.filter.offset", "earliest")
     val outputDir = spark.conf.get("spark.filter.output_dir_prefix", "/user/ilya.ilyin/visits")
@@ -30,7 +32,7 @@ object filter {
       ).load()
 
     // Convert column to string
-    val valueColumnConverted = inputDF.select(col("value")).as[String]
+    val valueColumnConverted: Dataset[String] = inputDF.select(col("value")).as[String]
 
     // Parse string to json
     var visits = spark.read.json(valueColumnConverted)
