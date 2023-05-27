@@ -37,7 +37,8 @@ object filter {
     // Parse string to json
     var visits = spark.read.json(valueColumnConverted)
 
-    visits = visits.withColumn("p_date", date_format((col("timestamp")./(1000)).cast("timestamp"), "yyyyMMdd"))
+    visits = visits.withColumn("date", date_format((col("timestamp")./(1000)).cast("timestamp"), "yyyyMMdd"))
+                   .withColumn("p_date", col("date"))
 
     // Filters
     val viewCategory = visits.filter(col("event_type").equalTo("view"))
