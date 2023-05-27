@@ -28,8 +28,8 @@ object filter {
           offset
         else {
           "{\"" + topicName + "\":{\"0\":" + offset + "}}"
-        }
-      ).load()
+        })
+      .load()
 
     // Convert column to string
     val valueColumnConverted: Dataset[String] = inputDF.select(col("value")).as[String]
