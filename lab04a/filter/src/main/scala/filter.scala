@@ -50,7 +50,7 @@ object filter {
       .format("json")
       .mode("overwrite")
       .partitionBy("p_date")
-      .option("path", "/user/ilya.ilyin/visits/view")
+      .option("path", outputDir + "/view")
       .save()
 
     buyCategory
@@ -58,7 +58,7 @@ object filter {
       .format("json")
       .mode("overwrite")
       .partitionBy("p_date")
-      .option("path", "/user/ilya.ilyin/visits/buy")
+      .option("path", outputDir + "/buy")
       .save()
   }
 }
