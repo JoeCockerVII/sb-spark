@@ -6,7 +6,7 @@ val sparkVersion = "2.4.7"
 
 lazy val root = (project in file("."))
   .settings {
-    name := "filter"
+    name := "users_items"
   }
 
 libraryDependencies ++= Seq(
