@@ -22,8 +22,8 @@ object users_items {
     val visits = visitsBuy.union(visitsView)
 
     // Find max date
-    val maxDatePath = visits.select(col("p_date")).orderBy(col("p_date").desc).head()
-      .toString().replaceAll("[\\[]|[\\]]","")
+    val maxDatePath = visits.select(max(date_add(to_date(col("p_date").cast("string"), "yyyyMMdd"),-1)))
+      .head().toString().replaceAll("[\\[]|[\\]]|[-]","")
 
     // Visits table modification
     val visitsModified: DataFrame =  visits
