@@ -23,6 +23,7 @@ object users_items {
 
     // Find max date
     val maxDatePath = visits.select(col("p_date")).orderBy(col("p_date").desc).head()
+      .toString().replaceAll("[\\[]|[\\]]","")
 
     // Visits table modification
     val visitsModified: DataFrame =  visits
