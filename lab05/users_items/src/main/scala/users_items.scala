@@ -11,7 +11,7 @@ object users_items {
 
     val inputDir: String = spark.conf.get("spark.users_items.input_dir","/user/ilya.ilyin/visits")
 
-    val outputDir: String = spark.conf.get("spark.users_items.output_dir","/user/ilya.ilyin/visits/users-items")
+    val outputDir: String = spark.conf.get("spark.users_items.output_dir","/user/ilya.ilyin/users-items")
     val update: String = spark.conf.get("spark.users_items.update","0")
 
     // Read from HDFS
