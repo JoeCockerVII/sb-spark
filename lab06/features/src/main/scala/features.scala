@@ -71,9 +71,12 @@ object features {
       .withColumn("rn", row_number().over(Window.partitionBy(col("tmp")).orderBy(col("count").desc)))
       .filter(col("rn") <= 1000).orderBy(col("domain"))
 
+    weblogsTopRank.count
+
     // web domains pivot
     val weblogsDomainPivot = weblogs.join(weblogsTopRank, Seq("domain"), "left")
       .withColumn("count", when(col("rn").isNotNull, lit(1)).otherwise(lit(0)))
+      .withColumn("domain", when(col("rn").isNotNull, col("domain").otherwise(lit("nan")))
       .groupBy(col("uid"), col("domain")).agg(sum("count").as("count_pivot"))
       .orderBy(col("domain"))
       .groupBy(col("uid")).pivot("domain").agg(sum(col("count_pivot")))
@@ -82,7 +85,7 @@ object features {
     // Create domainFeatures table
     val domainFeatures = weblogsDomainPivot.select(
       col("uid"),
-      array(weblogsDomainPivot.columns.filter(_ != "uid").map(n =>
+      array(weblogsDomainPivot.columns.filter(_ != "uid").filter(_ != "nan").map(n =>
         col("`" + n + "`")): _*).as("domain_features")
     )
 
