@@ -76,7 +76,7 @@ object features {
     // web domains pivot
     val weblogsDomainPivot = weblogs.join(weblogsTopRank, Seq("domain"), "left")
       .withColumn("count", when(col("rn").isNotNull, lit(1)).otherwise(lit(0)))
-      .withColumn("domain", when(col("rn").isNotNull, col("domain").otherwise(lit("nan"))))
+      .withColumn("domain", when(col("rn").isNotNull, col("domain")).otherwise(lit("nan")))
       .groupBy(col("uid"), col("domain")).agg(sum("count").as("count_pivot"))
       .orderBy(col("domain"))
       .groupBy(col("uid")).pivot("domain").agg(sum(col("count_pivot")))
